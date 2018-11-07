@@ -21,10 +21,10 @@ Thread safe: The array alone is not thread safe, but when you implement a synchr
 * sort()
 * toString()
 ### Streams:
-Arrays.stream(new int[] {1, 2, 3})
+`Arrays.stream(new int[] {1, 2, 3})
     .map(n -> 2 * n + 1)
     .average()
-    .ifPresent(System.out::println);
+    .ifPresent(System.out::println);`
 ### Ordered, sorted or both?
 The array can be sorted thanks to its base method in the interface called sort() and can be ordered with the help of the Collections class.
 ## ArrayList
@@ -56,7 +56,7 @@ Thread safe: The ArrayList is not thread safe since it has to iterate through th
 * size()
 trimtoSize()
 ### Streams:
-List<String> result = lines.stream().filter(line -> !"mkyong".equals(line)).collect(Collectors.toList());
+`List<String> result = lines.stream().filter(line -> !"mkyong".equals(line)).collect(Collectors.toList());`
 ### Ordered, sorted or both? 
 The ArrayList can be sorted or ordered thanks to the collection class.
 
@@ -83,10 +83,10 @@ The HashSet is not thread safe. In Java 8 there is a new method added into a con
 * remove(Object o)
 * size()
 ### Streams:
-Set<String> results = someDao.findByType(type)
+`Set<String> results = someDao.findByType(type)
         .stream()
         .map(ClassName::getValue)
-        .collect(Collectors.toSet());
+        .collect(Collectors.toSet());`
 ### Ordered, sorted or both?
 The sets can not be ordered or sorted since they are arranged in the way they are inserted.
 
@@ -114,10 +114,101 @@ Maps are not thread safe but there are several classes that can help with that. 
 * keySet()
 * put(Object k, Object v)
 ### Streams:
-Optional<List> o = id1.entrySet()
+`Optional<List> o = id1.entrySet()
                       .stream()
                       .filter( e -> e.getKey() == 1)
                       .map(Map.Entry::getValue)
-                      .findFirst();
+                      .findFirst();`
 ### Ordered, sorted or both?
 The maps can not be ordered or sorted since they are arranged in the way that they are inserted.
+    
+## Hashing types
+### HashMap: 
+Map based collection class that is used for storing Key & value pair. It is not an ordered collection which means it does not return the keys and values in the same order in which they have been inserted. The keys can’t be sorted either. It is unsynchronized and permits nulls(null values and null keys).
+#### Class Methods:
+* void clear(): It removes all the key and value pairs from the specified Map.
+* Object clone(): It returns a copy of all the mappings of a map and used for cloning them into another map.
+* boolean containsKey(Object key): It is a boolean function which returns true or false based on whether the specified key is found in the map.
+* boolean containsValue(Object Value): Similar to containsKey() method, however it looks for the specified value instead of key.
+* Value get(Object key): It returns the value for the specified key.
+* boolean isEmpty(): It checks whether the map is empty. If there are no key-value mapping present in the map then this function returns true else false.
+* Set keySet(): It returns the Set of the keys fetched from the map.
+* value put(Key k, Value v): Inserts key value mapping into the map. Used in the above example.
+* int size(): Returns the size of the map – Number of key-value mappings.
+* Collection values(): It returns a collection of values of map.
+* Value remove(Object key): It removes the key-value pair for the specified key. Used in the above example.
+* void putAll(Map m): Copies all the elements of a map to the another specified map.
+### HashTable:
+Map based collection class that is used for storing Key & value pair. It is not an ordered collection which means it does not return the keys and values in the same order in which they have been inserted. The keys can’t be sorted either. It is synchronized and does not permit nulls.
+#### Class methods:
+* Object clone(): Creates a shallow copy of this hashtable. All the structure of the hashtable itself is copied, but the keys and values are not cloned. This is a relatively expensive operation.
+* boolean contains(Object value): Tests if some key maps into the specified value in this hashtable. This operation is more expensive than the containsKey method.
+* boolean isEmpty(): Tests if this hashtable maps no keys to values.
+* Enumeration keys(): Returns an enumeration of the keys contained in the hash table.
+* Object put(Object key, Object value): Maps the specified key to the specified value in this hashtable.
+* void rehash(): Increases the size of the hash table and rehashes all of its keys.
+* Object remove(Object key): Removes the key (and its corresponding value) from this hashtable.
+* int size(): Returns the number of key-value mappings present in Hashtable.
+* String toString(): Returns the string equivalent of a hash table.
+* boolean containsKey(Object key): Tests if the specified object is a key in this hashtable.
+* boolean containsValue(Object value): Tests if the specified object is a value in this hashtable. Returns true if some value equal to value exists within the hash table. Returns false if the value isn’t found.
+* Enumeration elements(): Returns an enumeration of the values contained in the hash table.
+* Object get(Object key): Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key. 
+### LinkedHashMap:
+is a Hash table and linked list implementation of the Map interface, with predictable iteration order. it maintains a doubly-linked list running through all of its entries, which defines the iteration ordering. 
+#### Class methods:
+* void clear(): It removes all the key and value pairs from the specified Map.
+* Object clone(): It returns a copy of all the mappings of a map and used for cloning them into another map.
+* boolean containsKey(Object key): It is a boolean function which returns true or false based on whether the specified key is found in the map.
+* boolean containsValue(Object Value): Similar to containsKey() method, however it looks for the specified value instead of key.
+* Value get(Object key): It returns the value for the specified key.
+* boolean isEmpty(): It checks whether the map is empty. If there are no key-value mapping present in the map then this function returns true else false.
+* Set keySet(): It returns the Set of the keys fetched from the map.
+* value put(Key k, Value v): Inserts key value mapping into the map. Used in the above example.
+* int size(): Returns the size of the map – Number of key-value mappings.
+* Collection values(): It returns a collection of values of map.
+* Value remove(Object key): It removes the key-value pair for the specified key. Used in the above example.
+* void putAll(Map m): Copies all the elements of a map to the another specified map.
+### ConcurrentHashMap: 
+Similar to Hashtable, Synchronized, but faster as multiple locks are used.
+### HashSet:
+implements the Set interface, backed by a hash table (actually a HashMap instance) which only maintains the keys. It does not guarantee that the order will remain constant over time and permits the null element. It is not synchronized however it can be synchronized explicitly like this: 
+`Set s = Collections.synchronizedSet(new HashSet(...));`
+### LinkedHashSet: 
+implements the Set interface, backed by a hash table (actually a HashMap instance) which only maintains the keys.It maintains the insertion order. It is not synchronized however it can be synchronized explicitly like this: 
+`Set s = Collections.synchronizedSet(new LinkedHashSet(...));`
+
+## Difference between == and equals
+Main difference between .equals() method and == operator is that one is method and other is operator.
+We can use == operators for reference comparison and .equals() method for content comparison. In other words, == checks if both objects point to the same memory location whereas .equals() evaluates to the comparison of values in the objects.
+## Comparable vs Comparator
+A comparable object is capable of comparing itself with another object. The class itself must implements the java.lang.Comparable interface to compare its instances. 
+Comparator is external to the element type we are comparing. It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.
+If sorting of objects needs to be based on natural order then use Comparable whereas if you sorting needs to be done on attributes of different objects, then use Comparator in Java.
+## Generics
+A generic type is a generic class, interface or methods that is parameterized over types.
+The idea is to allow type (Integer, String, … etc and user defined types) to be a parameter to methods, classes and interfaces.
+### Generic class
+* To denote that a class is generic we establish the types of data that we want generic in <> then inside of the <> we establish with a capital letter as a  variable that indicates the type of object we want to use inside of our class. Example: 
+`public class Test <T>{ 
+    T obj; 
+    .....
+ }`
+* We can also use multiple variables to indicate more than one data type that the class can manage. Example: 
+`public class Test <T, U>{ 
+    T obj1;
+    U obj2; 
+    .....
+}`
+
+### Generic functions
+* Functions can be called with different types of arguments based on the type of arguments passed to the generic method, the compiler handles each method.
+* To denote that a function is generic first we establish its scope, first in <> we establish the variable of the generic type of data we want to use, then we establish its scope, followed by the return type of data, then the name of the function and inside () we establish the variable to use variable of the type of data with its name. Example: 
+`static <T> void genericDisplay (T element) 
+    { 
+        ..... 
+    } ` 
+
+
+
+
